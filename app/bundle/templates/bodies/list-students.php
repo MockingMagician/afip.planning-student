@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../principal-layout-top.php'; ?>
+<?php use Afip\Planning\Models\Student;
+
+require_once __DIR__ . '/../principal-layout-top.php'; ?>
 
     <div class="uk-container-expand uk-padding-small">
         <h2 class="uk-heading-line uk-text-center"><?php echo $title ?></h2>
@@ -14,19 +16,24 @@
             </thead>
             <tbody>
             <?php
-            /** @var \Afip\Planning\Models\Student $student */
+            /** @var Student $student */
             foreach ($students as $student) {
             ?>
                 <tr>
-                    <td><?php echo $student->getLastName() ?></td>
-                    <td><?php echo $student->getFirstName() ?></td>
-                    <td><?php echo $student->nationality ?></td>
-                    <td><?php echo $student->traineeship ?></td>
+                    <td><?php echo htmlspecialchars($student->getLastName()) ?></td>
+                    <td><?php echo htmlspecialchars($student->getFirstName()) ?></td>
+                    <td><?php echo htmlspecialchars($student->nationality) ?></td>
+                    <td><?php echo htmlspecialchars($student->traineeship) ?></td>
                     <td style="text-align: center;">
                         <a href="/student/edit/<?php echo $student->getId() ?>"
                            class="uk-button uk-button-primary"
                         >
                             Modifier
+                        </a>
+                        <a href="/student/delete/<?php echo $student->getId() ?>"
+                           class="uk-button uk-button-danger"
+                        >
+                            Supprimer
                         </a>
                     </td>
                 </tr>

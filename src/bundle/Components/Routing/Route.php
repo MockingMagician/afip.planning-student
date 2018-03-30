@@ -48,6 +48,7 @@ class Route
 
     /**
      * @param Router $router
+     *
      * @return Route
      */
     public function setRouter(?Router $router): Route
@@ -66,6 +67,7 @@ class Route
 
     /**
      * @param string $method
+     *
      * @return Route
      */
     public function setMethod(string $method): Route
@@ -84,6 +86,7 @@ class Route
 
     /**
      * @param string $regex
+     *
      * @return Route
      */
     public function setRegex(string $regex): Route
@@ -102,6 +105,7 @@ class Route
 
     /**
      * @param callable $callback
+     *
      * @return Route
      */
     public function setCallback(callable $callback): Route
@@ -120,6 +124,7 @@ class Route
 
     /**
      * @param array $varNames
+     *
      * @return Route
      */
     public function setVarNames(array $varNames): Route
@@ -163,14 +168,14 @@ class Route
      */
     private function uriParser($uriLike): self
     {
-        preg_match_all('/{(.*?)}/', $uriLike, $matches);
+        \preg_match_all('/{(.*?)}/', $uriLike, $matches);
 
         $this->setVarNames($matches[1]);
 
-        $this->setRegex(preg_replace(
+        $this->setRegex(\preg_replace(
             '/\\\{.*?}/',
             '(.*?)',
-            '/^'.preg_quote($uriLike, '/').'$/'
+            '/^'.\preg_quote($uriLike, '/').'(?:\?.*)?$/'
         ));
 
         return $this;
@@ -187,7 +192,7 @@ class Route
         return
             $this->method === $method
             &&
-            (bool) preg_match($this->getRegex(), $uri);
+            (bool) \preg_match($this->getRegex(), $uri);
     }
 
     /**
@@ -199,7 +204,7 @@ class Route
      */
     public function call($uri)
     {
-        preg_match(
+        \preg_match(
             $this->getRegex(),
             $uri,
             $varsArray
@@ -213,19 +218,19 @@ class Route
         while (\count($varsArray) < \count($args)) {
             $varsArray[] = null;
 
-            trigger_error('Use of undefined variables should avoid');
+            \trigger_error('Use of undefined variables SHOULD BE avoid');
         }
 
-        return \call_user_func_array( $this->getCallback(), $varsArray);
+        return \call_user_func_array($this->getCallback(), $varsArray);
     }
 
     /*
-  __  __                _           __  __        _    _                 _      
- |  \/  |  __ _   __ _ (_)  ___    |  \/  |  ___ | |_ | |__    ___    __| | ___ 
+  __  __                _           __  __        _    _                 _
+ |  \/  |  __ _   __ _ (_)  ___    |  \/  |  ___ | |_ | |__    ___    __| | ___
  | |\/| | / _` | / _` || | / __|   | |\/| | / _ \| __|| '_ \  / _ \  / _` |/ __|
  | |  | || (_| || (_| || || (__    | |  | ||  __/| |_ | | | || (_) || (_| |\__ \
  |_|  |_| \__,_| \__, ||_| \___|   |_|  |_| \___| \__||_| |_| \___/  \__,_||___/
-                 |___/                                                          
+                 |___/
      */
 
     public function __debugInfo()

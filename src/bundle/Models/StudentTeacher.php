@@ -3,23 +3,25 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
+use Afip\Planning\Models\Traits\TraitDelete;
 use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
-class Student
+class StudentTeacher
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
     use TraitGetBy;
     use TraitFlush;
+    use TraitDelete;
 
     /*
  __      __           _         _      _
@@ -40,10 +42,10 @@ class Student
     /** @var int */
     protected $teacherId;
 
-    /** @var int */
+    /** @var string */
     protected $startDate;
 
-    /** @var int */
+    /** @var string */
     protected $endDate;
 
     /*
@@ -65,6 +67,7 @@ class Student
 
     /**
      * @param int $id
+     *
      * @return self
      */
     private function setId(int $id): self
@@ -83,6 +86,7 @@ class Student
 
     /**
      * @param int $studentId
+     *
      * @return self
      */
     public function setStudentId(int $studentId): self
@@ -101,6 +105,7 @@ class Student
 
     /**
      * @param int $teacherId
+     *
      * @return self
      */
     public function setTeacherId(int $teacherId): self
@@ -110,38 +115,50 @@ class Student
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStartDate(): ?int
+    public function getStartDate(): ?string
     {
         return $this->startDate;
     }
 
     /**
-     * @param int $startDate
+     * @param string $startDate
+     *
      * @return self
      */
-    public function setStartDate(int $startDate): self
+    public function setStartDate(string $startDate): self
     {
         $this->startDate = $startDate;
         return $this;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEndDate(): ?int
+    public function getEndDate(): ?string
     {
         return $this->endDate;
     }
 
     /**
-     * @param int $endDate
+     * @param string $endDate
+     *
      * @return self
      */
-    public function setEndDate(int $endDate): self
+    public function setEndDate(string $endDate): self
     {
         $this->endDate = $endDate;
         return $this;
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public static function getByStudentId($id): array
+    {
+        return self::getBy('studentId', $id);
     }
 }

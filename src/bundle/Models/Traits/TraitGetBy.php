@@ -2,7 +2,6 @@
 
 namespace Afip\Planning\Models\Traits;
 
-
 use Afip\Planning\Connectivity\PDOConnect;
 
 trait TraitGetBy
@@ -32,7 +31,7 @@ trait TraitGetBy
         $reflect = new \ReflectionClass(new self());
 
         $stm = $pdo->prepare(
-            'SELECT * FROM '.lcfirst($reflect->getShortName())." WHERE $field = :fieldValue"
+            'SELECT * FROM '.\lcfirst($reflect->getShortName())." WHERE $field = :fieldValue"
         );
 
         $stm->bindParam(':fieldValue', $fieldValue);
@@ -58,7 +57,7 @@ trait TraitGetBy
      * @throws \ReflectionException
      * @throws \LogicException
      */
-    public static function getById(int $id)
+    public static function getById(?int $id)
     {
         return self::getBy('id', $id);
     }
@@ -66,7 +65,9 @@ trait TraitGetBy
     /**
      * @param int|null $limit
      * @param int|null $from
+     *
      * @return array
+     *
      * @throws \LogicException
      * @throws \ReflectionException
      */
@@ -76,11 +77,11 @@ trait TraitGetBy
 
         $reflect = new \ReflectionClass(new self());
 
-        $query = 'SELECT * FROM '.lcfirst($reflect->getShortName());
+        $query = 'SELECT * FROM '.\lcfirst($reflect->getShortName());
 
-        if ($limit !== null) {
+        if (null !== $limit) {
             $query .= ' LIMIT';
-            if ($from !== null) {
+            if (null !== $from) {
                 $query .= ' '.$from.',';
             }
             $query .= ' '.$limit;
@@ -99,12 +100,13 @@ trait TraitGetBy
         return $stack;
     }
 
-    public static function countAll() {
+    public static function countAll()
+    {
         $pdo = PDOConnect::getConnection();
 
         $reflect = new \ReflectionClass(new self());
 
-        $query = 'SELECT COUNT(*) AS count FROM '.lcfirst($reflect->getShortName());
+        $query = 'SELECT COUNT(*) AS count FROM '.\lcfirst($reflect->getShortName());
 
         $stm = $pdo->query($query);
 

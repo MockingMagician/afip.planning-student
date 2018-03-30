@@ -3,23 +3,25 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
+use Afip\Planning\Models\Traits\TraitDelete;
 use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
-class Traineeship
+class TraineeshipTeacher
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
     use TraitGetBy;
     use TraitFlush;
+    use TraitDelete;
 
     /*
  __      __           _         _      _
@@ -59,6 +61,7 @@ class Traineeship
 
     /**
      * @param int $id
+     *
      * @return self
      */
     private function setId(int $id): self
@@ -77,6 +80,7 @@ class Traineeship
 
     /**
      * @param int $traineeshipId
+     *
      * @return self
      */
     public function setTraineeshipId(int $traineeshipId): self
@@ -95,6 +99,7 @@ class Traineeship
 
     /**
      * @param int $teacherId
+     *
      * @return self
      */
     public function setTeacherId(int $teacherId): self
@@ -103,7 +108,7 @@ class Traineeship
         return $this;
     }
 
-    public function getByTeacherId(int $id): array
+    public static function getByTeacherId(int $id): array
     {
         return self::getBy('teacherId', $id);
     }

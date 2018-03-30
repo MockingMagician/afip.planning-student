@@ -3,23 +3,25 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
+use Afip\Planning\Models\Traits\TraitDelete;
 use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
 class Student
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
     use TraitGetBy;
     use TraitFlush;
+    use TraitDelete;
 
     /*
  __      __           _         _      _
@@ -65,9 +67,10 @@ class Student
 
     /**
      * @param int $id
+     *
      * @return self
      */
-    private function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
@@ -83,6 +86,7 @@ class Student
 
     /**
      * @param string $lastName
+     *
      * @return self
      */
     public function setLastName(string $lastName): self
@@ -101,6 +105,7 @@ class Student
 
     /**
      * @param string $firstName
+     *
      * @return self
      */
     public function setFirstName(string $firstName): self
@@ -119,9 +124,10 @@ class Student
 
     /**
      * @param int $nationalityId
+     *
      * @return self
      */
-    public function setNationalityId(int $nationalityId): self
+    public function setNationalityId(?int $nationalityId): self
     {
         $this->nationalityId = $nationalityId;
         return $this;
@@ -137,9 +143,10 @@ class Student
 
     /**
      * @param int $traineeshipId
+     *
      * @return self
      */
-    public function setTraineeshipId(int $traineeshipId): self
+    public function setTraineeshipId(?int $traineeshipId): self
     {
         $this->traineeshipId = $traineeshipId;
         return $this;

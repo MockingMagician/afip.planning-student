@@ -2,7 +2,6 @@
 
 namespace Afip\Planning\Components\Routing;
 
-
 class Router
 {
     /*
@@ -40,6 +39,7 @@ class Router
 
     /**
      * @param Route[] $routes
+     *
      * @return Router
      */
     public function setRoutes(array $routes): Router
@@ -58,6 +58,7 @@ class Router
 
     /**
      * @param Route[] $errorListener
+     *
      * @return Router
      */
     public function setErrorListener(array $errorListener): Router
@@ -77,7 +78,7 @@ class Router
 
     public function __construct()
     {
-        ob_start();
+        \ob_start();
     }
 
     /*
@@ -96,15 +97,26 @@ class Router
      *
      * @return Router
      */
-    public function addRoute
-    (
+    public function addRoute(
         string $withMethod,
         string $matchRegex,
         callable $callback
     )
-    : self
-    {
+    : self {
         $this->routes[] = new Route($withMethod, $matchRegex, $callback, $this);
+
+        return $this;
+    }
+
+    /**
+     * @param int $code
+     * @param callable $callback
+     *
+     * @return Router
+     */
+    public function addErrorRoute(int $code, callable $callback): self
+    {
+        $this->errorListener[$code] = new Route('', '', $callback, $this);
 
         return $this;
     }
@@ -143,7 +155,6 @@ class Router
 
         foreach ($this->routes as $route) {
             if ($route->isMatching($method, $uri)) {
-
                 return $route->call($uri);
             }
         }
@@ -160,20 +171,18 @@ class Router
     {
         foreach ($this->errorListener as $errorCode => $route) {
             if ($code === $errorCode) {
-
-                $route->call($code);
+                return $route->call($code);
             }
         }
 
-        if ($code === 404) {
-
+        if (404 === $code) {
             $this->notFoundDefault();
         }
     }
 
     public function redirect($uri)
     {
-        header('Location: '.$uri);
+        \header('Location: '.$uri);
     }
 
     /**
@@ -187,17 +196,17 @@ class Router
     }
 
     /*
-  __  __                _           __  __        _    _                 _      
- |  \/  |  __ _   __ _ (_)  ___    |  \/  |  ___ | |_ | |__    ___    __| | ___ 
+  __  __                _           __  __        _    _                 _
+ |  \/  |  __ _   __ _ (_)  ___    |  \/  |  ___ | |_ | |__    ___    __| | ___
  | |\/| | / _` | / _` || | / __|   | |\/| | / _ \| __|| '_ \  / _ \  / _` |/ __|
  | |  | || (_| || (_| || || (__    | |  | ||  __/| |_ | | | || (_) || (_| |\__ \
  |_|  |_| \__,_| \__, ||_| \___|   |_|  |_| \___| \__||_| |_| \___/  \__,_||___/
-                 |___/                                                          
+                 |___/
      */
 
     public function __debugInfo()
     {
-        return array_merge(
+        return \array_merge(
             $this->getRoutes(),
             $this->getErrorListener()
         );
@@ -205,6 +214,6 @@ class Router
 
     public function __destruct()
     {
-        ob_flush();
+        \ob_flush();
     }
 }

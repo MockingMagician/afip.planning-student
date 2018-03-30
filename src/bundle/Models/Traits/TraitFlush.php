@@ -2,7 +2,6 @@
 
 namespace Afip\Planning\Models\Traits;
 
-
 use Afip\Planning\Connectivity\PDOConnect;
 
 trait TraitFlush

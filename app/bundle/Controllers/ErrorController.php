@@ -4,11 +4,8 @@ namespace Afip\Planning\App\Controllers;
 
 use Afip\Planning\Components\Rendering\Renderer;
 use Afip\Planning\Components\Routing\Router;
-use Afip\Planning\Models\Room;
-use Afip\Planning\Models\Student;
-use Afip\Planning\Models\Teacher;
 
-class IndexController
+class ErrorController
 {
     /*
    ____                    _                       _
@@ -37,20 +34,13 @@ class IndexController
      *
      * @throws \LogicException
      */
-    public static function view()
+    public static function Error404()
     {
         return function (Router $router) {
-            $teachersCount = Teacher::countAll();
-            $roomsCount    = Room::countAll();
-            $studentsCount = Student::countAll();
-
             Renderer::render(
-                __DIR__ . '/../templates/bodies/root.php',
+                __DIR__ . '/../templates/bodies/error404.php',
                 [
-                    'title' => 'Accueil',
-                    'teachersCount' => $teachersCount,
-                    'roomsCount' => $roomsCount,
-                    'studentsCount' => $studentsCount,
+                    'title' => 'Erreur 404 <br><br>'.$router->getCurrentUri().'<br><br>Ressource introuvable',
                 ]
             );
         };

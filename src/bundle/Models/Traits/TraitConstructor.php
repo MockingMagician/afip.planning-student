@@ -2,7 +2,6 @@
 
 namespace Afip\Planning\Models\Traits;
 
-
 trait TraitConstructor
 {
     /*
@@ -21,10 +20,12 @@ trait TraitConstructor
      */
     public function __construct(array $associativeArrayValues = null)
     {
-        foreach ($associativeArrayValues as $variable => $value) {
-            $method = 'set'.ucfirst($variable);
-            if (method_exists($this, $method)) {
-                $this->{$method}($value);
+        if (\is_array($associativeArrayValues)) {
+            foreach ($associativeArrayValues as $variable => $value) {
+                $method = 'set'.\ucfirst($variable);
+                if (\method_exists($this, $method)) {
+                    $this->{$method}($value);
+                }
             }
         }
     }

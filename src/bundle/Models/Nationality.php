@@ -3,23 +3,25 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
+use Afip\Planning\Models\Traits\TraitDelete;
 use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
 class Nationality
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
     use TraitGetBy;
     use TraitFlush;
+    use TraitDelete;
 
     /*
  __      __           _         _      _
@@ -56,9 +58,10 @@ class Nationality
 
     /**
      * @param int $id
+     *
      * @return self
      */
-    private function setId(int $id): self
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
@@ -74,6 +77,7 @@ class Nationality
 
     /**
      * @param string $label
+     *
      * @return self
      */
     public function setLabel(string $label): self

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../principal-layout-top.php'; ?>
 
     <div class="uk-container-expand uk-padding-small">
         <h2 class="uk-heading-line uk-text-center"><?php echo $title ?></h2>
-        <table id="table-list-student" class="display uk-table uk-table-striped" style="width:100%">
+        <table id="table-list" class="display uk-table uk-table-striped" style="width:100%">
             <thead>
             <tr>
                 <th>Nom</th>
@@ -20,18 +20,18 @@ require_once __DIR__ . '/../principal-layout-top.php'; ?>
             foreach ($teachers as $teacher) {
             ?>
                 <tr>
-                    <td><?php echo $teacher->getLastName() ?></td>
-                    <td><?php echo $teacher->getFirstName() ?></td>
-                    <td><?php echo $teacher->room ?></td>
+                    <td><?php echo htmlspecialchars($teacher->getLastName()) ?></td>
+                    <td><?php echo htmlspecialchars($teacher->getFirstName()) ?></td>
+                    <td><?php echo htmlspecialchars($teacher->room) ?></td>
                     <td>
                         <ul>
                             <?php foreach ($teacher->traineeships as $traineeship) { ?>
-                            <li><?php echo $traineeship->getTraineeshipLabel() ?></li>
+                            <li><?php echo htmlspecialchars($traineeship->getTraineeshipLabel()) ?></li>
                             <?php } ?>
                         </ul>
                     </td>
                     <td style="text-align: center;">
-                        <a href="/student/edit/<?php echo $teacher->getId() ?>"
+                        <a href="/teacher/edit/<?php echo $teacher->getId() ?>"
                            class="uk-button uk-button-primary"
                         >
                             Modifier
@@ -54,7 +54,7 @@ require_once __DIR__ . '/../principal-layout-top.php'; ?>
 
     <script>
         $(document).ready(function() {
-            $('#table-list-student').DataTable();
+            $('#table-list').DataTable();
         } );
     </script>
 

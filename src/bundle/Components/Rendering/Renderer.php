@@ -2,7 +2,6 @@
 
 namespace Afip\Planning\Components\Rendering;
 
-
 class Renderer
 {
     /*
@@ -14,7 +13,7 @@ class Renderer
 
      */
 
-    public function __construct()
+    private function __construct()
     {
     }
 
@@ -33,13 +32,13 @@ class Renderer
      *
      * @throws \LogicException
      */
-    public function render(string $path, array $varsArray): void
+    public static function render(string $path, array $varsArray): void
     {
-        if (! $this->isReadable($path)) {
+        if (! self::isReadable($path)) {
             throw new \LogicException("{$path} file is not readable or not exist");
         }
 
-        echo $this->rending($path, $varsArray);
+        echo self::rending($path, $varsArray);
     }
 
     /**
@@ -47,7 +46,7 @@ class Renderer
      *
      * @return bool
      */
-    private function isReadable(string $path): bool
+    private static function isReadable(string $path): bool
     {
         return \is_readable($path);
     }
@@ -58,7 +57,7 @@ class Renderer
      *
      * @return string
      */
-    private function rending(string $path, array $varsArray): string
+    private static function rending(string $path, array $varsArray): string
     {
         \ob_start();
         foreach ($varsArray as $varName => $value) {

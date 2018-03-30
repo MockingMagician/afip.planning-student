@@ -3,18 +3,17 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
-use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
 class TeacherTraineeshipLabel
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
@@ -32,6 +31,9 @@ class TeacherTraineeshipLabel
 
     /** @var string */
     protected $traineeshipLabel;
+
+    /** @var int */
+    protected $traineeshipId;
 
     /** @var int */
     protected $teacherId;
@@ -55,6 +57,7 @@ class TeacherTraineeshipLabel
 
     /**
      * @param string $traineeshipLabel
+     *
      * @return self
      */
     public function setTraineeshipLabel(string $traineeshipLabel): self
@@ -73,11 +76,31 @@ class TeacherTraineeshipLabel
 
     /**
      * @param int $teacherId
+     *
      * @return self
      */
     public function setTeacherId(int $teacherId): self
     {
         $this->teacherId = $teacherId;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTraineeshipId(): ?int
+    {
+        return $this->traineeshipId;
+    }
+
+    /**
+     * @param int $traineeshipId
+     *
+     * @return self
+     */
+    public function setTraineeshipId(int $traineeshipId): self
+    {
+        $this->traineeshipId = $traineeshipId;
         return $this;
     }
 

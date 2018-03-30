@@ -3,23 +3,25 @@
 namespace Afip\Planning\Models;
 
 use Afip\Planning\Models\Traits\TraitConstructor;
+use Afip\Planning\Models\Traits\TraitDelete;
 use Afip\Planning\Models\Traits\TraitFlush;
 use Afip\Planning\Models\Traits\TraitGetBy;
 
 class Teacher
 {
     /*
-  _____             _  _        
- |_   _|_ __  __ _ (_)| |_  ___ 
+  _____             _  _
+ |_   _|_ __  __ _ (_)| |_  ___
    | | | '__|/ _` || || __|/ __|
    | | | |  | (_| || || |_ \__ \
    |_| |_|   \__,_||_| \__||___/
-     
+
     */
 
     use TraitConstructor;
     use TraitGetBy;
     use TraitFlush;
+    use TraitDelete;
 
     /*
  __      __           _         _      _
@@ -62,9 +64,10 @@ class Teacher
 
     /**
      * @param int $id
+     *
      * @return self
      */
-    private function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
@@ -80,6 +83,7 @@ class Teacher
 
     /**
      * @param string $lastName
+     *
      * @return self
      */
     public function setLastName(string $lastName): self
@@ -98,6 +102,7 @@ class Teacher
 
     /**
      * @param string $firstName
+     *
      * @return self
      */
     public function setFirstName(string $firstName): self
@@ -116,9 +121,10 @@ class Teacher
 
     /**
      * @param int $roomId
+     *
      * @return self
      */
-    public function setRoomId(int $roomId): self
+    public function setRoomId(?int $roomId): self
     {
         $this->roomId = $roomId;
         return $this;

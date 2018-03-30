@@ -25,7 +25,7 @@ class PDOConnect
     private static $username = '';
     private static $password = '';
     private static $options  = [
-        \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+        \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     ];
 
     /*
@@ -81,6 +81,7 @@ class PDOConnect
 
     /**
      * @return \PDO
+     *
      * @throws \LogicException
      */
     public static function getConnection(): \PDO
@@ -88,11 +89,11 @@ class PDOConnect
         if (self::$firstCall) {
             self::setPdoParameters(
                 [
-                    'dbName' => getenv('DB_NAME'),
-                    'host' => getenv('DB_HOST'),
-                    'port' => getenv('DB_PORT'),
-                    'username' => getenv('DB_USERNAME'),
-                    'password' => getenv('DB_PASSWORD'),
+                    'dbName' => \getenv('DB_NAME'),
+                    'host' => \getenv('DB_HOST'),
+                    'port' => \getenv('DB_PORT'),
+                    'username' => \getenv('DB_USERNAME'),
+                    'password' => \getenv('DB_PASSWORD'),
                 ]
             );
             self::$firstCall = false;

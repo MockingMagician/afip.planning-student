@@ -15,12 +15,17 @@
             foreach ($rooms as $room) {
             ?>
                 <tr>
-                    <td><?php echo $room->getLabel() ?></td>
+                    <td><?php echo htmlspecialchars($room->getLabel()) ?></td>
                     <td style="text-align: center;">
-                        <a href="/rooms/edit/<?php echo $room->getId() ?>"
+                        <a href="/room/edit/<?php echo $room->getId() ?>"
                            class="uk-button uk-button-primary"
                         >
                             Modifier
+                        </a>
+                        <a href="/room/delete/<?php echo $room->getId() ?>"
+                           class="uk-button uk-button-danger"
+                        >
+                            Supprimer
                         </a>
                     </td>
                 </tr>

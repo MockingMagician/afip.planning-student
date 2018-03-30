@@ -17,12 +17,17 @@ require_once __DIR__ . '/../principal-layout-top.php'; ?>
             foreach ($nationalities as $nationality) {
             ?>
                 <tr>
-                    <td><?php echo $nationality->getLabel() ?></td>
+                    <td><?php echo htmlspecialchars($nationality->getLabel()) ?></td>
                     <td style="text-align: center;">
-                        <a href="/rooms/edit/<?php echo $nationality->getId() ?>"
+                        <a href="/nationality/edit/<?php echo $nationality->getId() ?>"
                            class="uk-button uk-button-primary"
                         >
                             Modifier
+                        </a>
+                        <a href="/nationality/delete/<?php echo $nationality->getId() ?>"
+                           class="uk-button uk-button-danger"
+                        >
+                            Supprimer
                         </a>
                     </td>
                 </tr>

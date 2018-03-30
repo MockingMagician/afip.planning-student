@@ -5,9 +5,10 @@ namespace Afip\Planning\App\Controllers;
 use Afip\Planning\Components\Messenger\Messenger;
 use Afip\Planning\Components\Rendering\Renderer;
 use Afip\Planning\Components\Routing\Router;
+use Afip\Planning\Models\Nationality;
 use Afip\Planning\Models\Room;
 
-class RoomController
+class NationalityController
 {
     /*
    ____                    _                       _
@@ -40,14 +41,14 @@ class RoomController
     public static function list()
     {
         return function (Router $router, $id) {
-            /** @var Room[] $rooms */
-            $rooms = Room::getAll();
+            /** @var Nationality[] $students */
+            $nationalities = Nationality::getAll();
 
             Renderer::render(
-                __DIR__.'/../templates/bodies/list-rooms.php',
+                __DIR__.'/../templates/bodies/list-nationalities.php',
                 [
-                    'title' => 'Liste des salles',
-                    'rooms' => $rooms,
+                    'title' => 'Liste des nationalitées',
+                    'nationalities' => $nationalities,
                 ]
             );
         };
@@ -62,7 +63,7 @@ class RoomController
     {
         return function (Router $router) {
             Renderer::render(
-                __DIR__.'/../templates/bodies/add-edit-room.php',
+                __DIR__.'/../templates/bodies/add-edit-nationality.php',
                 [
                     'title' => 'Ajouter une Salle',
                 ]
@@ -78,12 +79,12 @@ class RoomController
     public static function addAction()
     {
         return function (Router $router) {
-            $room = new Room($_POST['room']);
+            $nationality = new Nationality($_POST['nationality']);
 
-            $room->flush();
+            $nationality->flush();
 
-            if (null !== $room->getId()) {
-                Messenger::addMessage("Salle {$room->getLabel()} ajouté");
+            if (null !== $nationality->getId()) {
+                Messenger::addMessage("Nationalité {$nationality->getLabel()} ajouté");
             } else {
                 Messenger::addMessage('une erreur est survenue');
             }
@@ -100,16 +101,15 @@ class RoomController
     public static function delete()
     {
         return function (Router $router, $id) {
-            /** @var Room[] $room */
-            $room = Room::getById($id);
+            /** @var Nationality[] $nationality */
+            $nationality = Nationality::getById($id);
 
-            if (0 < \count($room)) {
-                $room[0]->delete();
+            if (0 < \count($nationality)) {
+                $nationality[0]->delete();
+                Messenger::addMessage('Suppression de la nationalité');
             }
 
-            Messenger::addMessage('Suppression de la salle');
-
-            $router->redirect('/list/rooms');
+            $router->redirect('/list/nationalities');
         };
     }
 
@@ -122,19 +122,19 @@ class RoomController
     public static function editView()
     {
         return function (Router $router, $id) {
-            $room = Room::getById($id);
+            $nationality = Nationality::getById($id);
 
-            if (0 === \count($room)) {
-                Messenger::addMessage("La salle n'existe pas", Messenger::DANGER);
+            if (0 === \count($nationality)) {
+                Messenger::addMessage("La nationalité n'existe pas", Messenger::DANGER);
 
-                return $router->redirect('/list/rooms');
+                return $router->redirect('/list/nationalities');
             }
 
             Renderer::render(
-                __DIR__.'/../templates/bodies/add-edit-room.php',
+                __DIR__.'/../templates/bodies/add-edit-nationality.php',
                 [
-                    'title' => 'Modification de la salle : '.$room[0]->getLabel(),
-                    'room'  => $room[0],
+                    'title' => 'Modification de la nationalité : '.$nationality[0]->getLabel(),
+                    'nationality'  => $nationality[0],
                 ]
             );
         };
@@ -150,19 +150,19 @@ class RoomController
     {
         return function (Router $router, $id) {
             /** @var Room $room */
-            $room = new Room($_POST['room']);
+            $nationality = new Nationality($_POST['nationality']);
 
-            $room->setId($id);
+            $nationality->setId($id);
 
-            $room->flush();
+            $nationality->flush();
 
-            if (null !== $room->getId()) {
-                Messenger::addMessage("Salle {$room->getLabel()} modfié");
+            if (null !== $nationality->getId()) {
+                Messenger::addMessage("Nationalité {$nationality->getLabel()} modifié");
             } else {
                 Messenger::addMessage('une erreur est survenue');
             }
 
-            return $router->redirect('/list/rooms');
+            return $router->redirect('/list/nationalities');
         };
     }
 }
