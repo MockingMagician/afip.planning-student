@@ -60,7 +60,7 @@ class TeacherController
      */
     public static function list()
     {
-        return function (Router $router, $id) {
+        return function (Router $router) {
             $teachers = TeacherController::getAllTeacherWithExtraData();
 
             Renderer::render(

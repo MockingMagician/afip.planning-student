@@ -40,7 +40,7 @@ class NationalityController
      */
     public static function list()
     {
-        return function (Router $router, $id) {
+        return function (Router $router) {
             /** @var Nationality[] $students */
             $nationalities = Nationality::getAll();
 

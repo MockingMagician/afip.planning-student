@@ -56,10 +56,10 @@ class Messenger
     public static function getMessages(): array
     {
         \session_start();
-        $messages = $_SESSION['_messenger'];
+        $messages = $_SESSION['_messenger'] ?? [];
         unset($_SESSION['_messenger']);
         \session_write_close();
 
-        return $messages ?? [];
+        return $messages;
     }
 }

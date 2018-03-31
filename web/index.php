@@ -1,11 +1,15 @@
 <?php
 
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
 use Afip\Planning\App\Controllers\ErrorController;
 use Afip\Planning\App\Controllers\IndexController;
 use Afip\Planning\App\Controllers\NationalityController;
 use Afip\Planning\App\Controllers\RoomController;
 use Afip\Planning\App\Controllers\StudentController;
 use Afip\Planning\App\Controllers\TeacherController;
+use Afip\Planning\App\Controllers\TestController;
 use Afip\Planning\Components\Routing\Router;
 use Afip\Planning\Models\Room;
 
@@ -144,6 +148,11 @@ $router
         'POST',
         '/student/all/edit',
         StudentController::editAllAction()
+    )
+    ->addRoute(
+        'GET',
+        '/test/renderer',
+        TestController::renderer()
     )
     ->addErrorRoute(404, ErrorController::Error404())
 ;

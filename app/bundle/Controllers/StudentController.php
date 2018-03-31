@@ -89,7 +89,7 @@ class StudentController
      */
     public static function list()
     {
-        return function (Router $router, $id) {
+        return function (Router $router) {
             /** @var \Afip\Planning\Models\Student[] $students */
             $students = Student::getAll();
 

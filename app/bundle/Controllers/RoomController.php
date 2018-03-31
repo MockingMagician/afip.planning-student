@@ -39,7 +39,7 @@ class RoomController
      */
     public static function list()
     {
-        return function (Router $router, $id) {
+        return function (Router $router) {
             /** @var Room[] $rooms */
             $rooms = Room::getAll();
 
